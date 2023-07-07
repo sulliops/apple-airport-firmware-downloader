@@ -24,6 +24,8 @@ In the event that Apple removes access to this catalog, a backup of the catalog 
 
 Should the official catalog go offline, there is no guarantee that the links available in the hosted catalog backup will continue to resolve. The script will display an error in this case.
 
+Lastly, I'm aware this code isn't the best ever written; I'm still new to this, and, realistically, I'm the only one who will ever use this. It also doesn't verify the server's SSL certificate, but I'm leaning against adding that because you never know what could happen to these old, unmaintained software catalogues and I don't want the script to become unusable. No data is being sent Apple's servers other than request headers, so it ought to be fine.
+
 ----
 
 #### Running the script

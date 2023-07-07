@@ -167,7 +167,7 @@ def downloadFirmwareUpdate(firmwareUpdate):
                 progressBar.update(len(data))
                 downloadedFirmware.write(data)
                 
-        # Close the downloaded file
+        # Close the progress bar
         progressBar.close()
     else:
         print("\nERROR: The requested firmware is not available for download from " + firmwareUpdate["URL"])

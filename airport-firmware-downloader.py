@@ -1,7 +1,7 @@
 ### Apple AirPort Firmware Downloader
 ### Created by: Owen Sullivan | https://sulliops.co | https://github.com/sulliops
 ### Official script repo: https://github.com/sulliops/apple-airport-firmware-downloader
-### Version: 1.0.0
+### Version: 1.1.0
 
 import requests # for HTTP requests
 import plistlib # for parsing the APSU catalog
@@ -81,13 +81,21 @@ def mainMenu(catalog):
         # Loop forever again (I hate this)
         while True:
             # Get user input for menu selection
-            selection = input("\nInput desired product by number (e.g., 1, 2...) or 'q' to quit: ")
+            selection = input("\nInput desired product by number (e.g., 1, 2...), 'a' to download all (for archiving), or 'q' to quit: ")
             
             # If the selection is a digit and is within the valid range
             if selection.isdigit() and 1 <= int(selection) <= len(catalog):
                 # Pass the corresponding dict key to submenu function
                 getFirmwareUpdatesByProductID(catalog, list(catalog.keys())[int(selection) - 1])
-                # Break the infinite loop (phew)
+                # Break the infinite loop
+                break
+            # If the selection is 'a' or 'A', download all firmwares for all available AirPort devices
+            elif selection.lower() == "a" or selection.lower() == "A":
+                # Loop through all available AirPort devices
+                for index, airPortProductID in enumerate(catalog):
+                    # Pass the corresponding dict key to function that downloads all firmwares for a device
+                    getAllFirmwareUpdatesByProductID(catalog, list(catalog.keys())[int(index)])
+                # Break the infinite loop
                 break
             # If the selection is 'q' or 'Q', exit the program
             elif selection.lower() == "q" or selection.lower() == "Q":
@@ -115,12 +123,16 @@ def getFirmwareUpdatesByProductID(catalog, ID):
         # Loop forever again (I hate this)
         while True:
             # Get user input for menu selection
-            selection = input("\nInput desired firmware by number (e.g., 1, 2...), 'b' to go back, or 'q' to quit: ")
+            selection = input("\nInput desired firmware by number (e.g., 1, 2...), 'a' to download all for this model (for archiving), 'b' to go back, or 'q' to quit: ")
             
             # If the selection is a digit and is within the valid range
             if selection.isdigit() and 1 <= int(selection) <= len(firmwareUpdates):
                 # Call download function
                 downloadFirmwareUpdate(firmwareUpdates[int(selection) - 1])
+            # If the selection is 'a' or 'A', download all firmwares for the model
+            elif selection.lower() == "a" or selection.lower() == "A":
+                # Call function that downloads all firmwares for a given model
+                getAllFirmwareUpdatesByProductID(catalog, ID)
             # If the selection is 'b' or 'B', exit the submenu
             elif selection.lower() == "b" or selection.lower() == "B":
                 # Update loop control variable for outer loop
@@ -133,6 +145,16 @@ def getFirmwareUpdatesByProductID(catalog, ID):
             # Otherwise, print an error message
             else:
                 print("Invalid choice, try again...")
+                
+# Function to download all firmware updates for a selected model
+def getAllFirmwareUpdatesByProductID(catalog, ID):
+    # Get all dict values with associated key
+    firmwareUpdates = catalog.get(int(ID), [])
+    
+    # Loop through all available firmware updates for the given product ID
+    for index, firmwareUpdate in enumerate(firmwareUpdates):
+        # Call download function
+        downloadFirmwareUpdate(firmwareUpdate)
 
 # Function to download and save a selected firmware update
 def downloadFirmwareUpdate(firmwareUpdate):

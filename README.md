@@ -1,6 +1,6 @@
 # Apple AirPort Firmware Downloader
 
-### Version 1.0.0
+### Version 1.1.0
 
 *Created by Owen Sullivan, [sulliops.co](https://sulliops.co)*
 
@@ -9,6 +9,8 @@
 #### What does this script do?
 
 `airport-firmware-downloader.py` fetches a list of available AirPort firmware update files according to model (Base Station, Express, Extreme, Time Capsule, etc.) and generation, then lists the available firmware based on the selected model and allows the user to specify which to download.
+
+With version 1.1.0, the script also allows the user to download all available firmware updates for archiving. A user can download all firmware updates for all available models from the main menu, or all firmware updates for a specific model from that model's sub-menu.
 
 The idea for this script was inspired by [gibMacOS](https://github.com/corpnewt/gibMacOS) after I found myself in posession of a handful of AirPort Extreme routers that I'm considering reverse-engineering, if such a thing is possible. [This blog post](https://www.sallonoroff.co.uk/blog/2015/07/apple-airport-firmware-updates/) was a huge help in finding the AirPort firmware catalog.
 

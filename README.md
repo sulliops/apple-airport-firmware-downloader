@@ -16,7 +16,7 @@ The idea for this script was inspired by [gibMacOS](https://github.com/corpnewt/
 
 ----
 
-#### Is this script safe?:
+#### Is this script safe?
 
 In short, it damn well should be.
 
